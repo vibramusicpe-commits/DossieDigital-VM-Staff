@@ -150,12 +150,49 @@ export function StepMethod() {
 /* ------------------------------------------------------------------- PASO 4 */
 
 const CURSOS = [
-  { nombre: "Guitarra", edades: "7 años a adultos" },
-  { nombre: "Piano", edades: "desde 4 años" },
-  { nombre: "Violín", edades: "7 años a adultos" },
-  { nombre: "Canto", edades: "7 años a adultos" },
-  { nombre: "Batería", edades: "7 años a adultos" },
+  {
+    nombre: "Guitarra",
+    edades: "7 años a adultos",
+    poster: cursoGuitarra,
+    video: vidGuitarra.url,
+    alt: "Manos de una alumna tocando guitarra acústica con luz cálida",
+  },
+  {
+    nombre: "Piano",
+    edades: "desde 4 años",
+    poster: cursoPiano,
+    video: vidPiano.url,
+    alt: "Manos recorriendo las teclas de un piano de cola",
+  },
+  {
+    nombre: "Violín",
+    edades: "7 años a adultos",
+    poster: cursoViolin,
+    video: vidViolin.url,
+    alt: "Alumno tocando violín con el arco sobre las cuerdas",
+  },
+  {
+    nombre: "Canto",
+    edades: "7 años a adultos",
+    poster: cursoCanto,
+    video: vidCanto.url,
+    alt: "Alumna cantando frente a un micrófono de estudio",
+  },
+  {
+    nombre: "Batería",
+    edades: "7 años a adultos",
+    poster: cursoBateria,
+    video: vidBateria.url,
+    alt: "Manos con baquetas tocando caja y platillos",
+  },
 ];
+
+const CURSO_EXPLORAR = {
+  nombre: "Aún no lo sé",
+  poster: cursoExplorar,
+  video: vidExplorar.url,
+  alt: "Sala de ensayo con guitarra, piano, violín y batería bajo luces cálidas",
+};
 
 export function StepInstruments({
   seleccion,
