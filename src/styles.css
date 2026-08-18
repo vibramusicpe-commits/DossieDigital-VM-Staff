@@ -1,0 +1,200 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * VIBRA MUSIC — Design System (Onboarding "Noche & Dorado")
+ * Negro profundo · Marrón cálido · Blanco cálido · Dorado
+ * Ink #0B0A09 · Cocoa #241C15 · Ivory #F7F2EA · Gold #D8A63D · Brown #6B4A2B
+ */
+
+@theme inline {
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-sand: var(--sand);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-caramel: var(--caramel);
+  --color-caramel-foreground: var(--caramel-foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 1.125rem;
+
+  /* Brand */
+  --background: oklch(0.1584 0.0055 60); /* #0B0A09 */
+  --foreground: oklch(0.9605 0.0122 86); /* #F7F2EA */
+  --sand: oklch(0.2593 0.0184 61); /* #241C15 cocoa */
+  --gold: oklch(0.7563 0.1132 79); /* #D8A63D */
+  --gold-foreground: oklch(0.1584 0.0055 60);
+  --caramel: oklch(0.4232 0.0611 58); /* #6B4A2B brown */
+  --caramel-foreground: oklch(0.9605 0.0122 86);
+
+  --card: oklch(0.2141 0.0135 60);
+  --card-foreground: oklch(0.9605 0.0122 86);
+  --popover: oklch(0.2141 0.0135 60);
+  --popover-foreground: oklch(0.9605 0.0122 86);
+  --primary: oklch(0.7563 0.1132 79);
+  --primary-foreground: oklch(0.1584 0.0055 60);
+  --secondary: oklch(0.2593 0.0184 61);
+  --secondary-foreground: oklch(0.9605 0.0122 86);
+  --muted: oklch(0.2593 0.0184 61);
+  --muted-foreground: oklch(0.7419 0.0163 82);
+  --accent: oklch(0.4232 0.0611 58);
+  --accent-foreground: oklch(0.9605 0.0122 86);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.3162 0.0184 62);
+  --input: oklch(0.3162 0.0184 62);
+  --ring: oklch(0.7563 0.1132 79);
+  --chart-1: oklch(0.7563 0.1132 79);
+  --chart-2: oklch(0.4232 0.0611 58);
+  --chart-3: oklch(0.7419 0.0163 82);
+  --chart-4: oklch(0.3162 0.0184 62);
+  --chart-5: oklch(0.9605 0.0122 86);
+  --sidebar: oklch(0.2141 0.0135 60);
+  --sidebar-foreground: oklch(0.9605 0.0122 86);
+  --sidebar-primary: oklch(0.7563 0.1132 79);
+  --sidebar-primary-foreground: oklch(0.1584 0.0055 60);
+  --sidebar-accent: oklch(0.2593 0.0184 61);
+  --sidebar-accent-foreground: oklch(0.9605 0.0122 86);
+  --sidebar-border: oklch(0.3162 0.0184 62);
+  --sidebar-ring: oklch(0.7563 0.1132 79);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+  }
+
+  body {
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Halo dorado suave detrás de logos, avatares e insignias */
+@utility gold-halo {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -22%;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--gold) 26%, transparent) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+}
+
+@utility card-soft {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -24px oklch(0 0 0 / 0.8);
+}
+
+/* Hilo dorado fino como separador editorial */
+@utility gold-thread {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--gold) 65%, transparent),
+    transparent
+  );
+}
+
+/* Marco de foto con viñeta cálida */
+@utility photo-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
+  box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.9);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        120% 80% at 50% 10%,
+        transparent 35%,
+        color-mix(in oklab, var(--background) 78%, transparent) 100%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in oklab, var(--background) 92%, transparent) 0%,
+        transparent 55%
+      );
+    pointer-events: none;
+  }
+}
+
+/* Textura de grano muy sutil para dar calidez al negro */
+@utility warm-grain {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--gold) 8%, transparent) 0.5px,
+    transparent 0.5px
+  );
+  background-size: 6px 6px;
+}
