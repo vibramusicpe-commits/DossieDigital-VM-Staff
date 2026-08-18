@@ -23,6 +23,7 @@ import {
   Card,
   Eyebrow,
   IconBadge,
+  MediaFrame,
   Photo,
   PhotoSlot,
   Rise,
