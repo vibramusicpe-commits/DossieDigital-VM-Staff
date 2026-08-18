@@ -61,15 +61,36 @@ export function OnboardingShell({
     <div
       className="flex min-h-screen flex-col bg-background"
       onTouchStart={(e) => {
-        touchStart.current = e.touches[0]?.clientY ?? null;
+        const t = e.touches[0];
+        touchStart.current = t ? { y: t.clientY, x: t.clientX, time: Date.now() } : null;
       }}
       onTouchEnd={(e) => {
         const start = touchStart.current;
-        const end = e.changedTouches[0]?.clientY;
-        if (start == null || end == null) return;
-        if (start - end > 70) onNext();
-        if (end - start > 70) onPrev();
         touchStart.current = null;
+        const t = e.changedTouches[0];
+        if (!start || !t) return;
+
+        const dy = start.y - t.clientY;
+        const dx = Math.abs(start.x - t.clientX);
+        // Solo gestos claramente verticales, largos y no accidentales.
+        if (Math.abs(dy) < 140 || dx > Math.abs(dy) * 0.6) return;
+
+        // Enfriamiento: evita saltar varios pasos seguidos al deslizar rápido.
+        const now = Date.now();
+        if (now - lastNav.current < 900) return;
+
+        // Solo cambia de paso en los extremos del scroll, para poder leer.
+        const scrollY = window.scrollY;
+        const atTop = scrollY <= 4;
+        const atBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8;
+
+        if (dy > 0 && atBottom) {
+          lastNav.current = now;
+          onNext();
+        } else if (dy < 0 && atTop) {
+          lastNav.current = now;
+          onPrev();
+        }
       }}
     >
       {/* Cabecera: marca + progreso */}
