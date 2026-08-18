@@ -6,6 +6,18 @@ import { Award, Brain, Flame, Heart, Sparkles } from "lucide-react";
 import onbBienvenida from "@/assets/onb-bienvenida.jpg";
 import onbInstrumentos from "@/assets/onb-instrumentos.jpg";
 import onbMetodo from "@/assets/onb-metodo.jpg";
+import cursoBateria from "@/assets/curso-bateria.jpg";
+import cursoCanto from "@/assets/curso-canto.jpg";
+import cursoExplorar from "@/assets/curso-explorar.jpg";
+import cursoGuitarra from "@/assets/curso-guitarra.jpg";
+import cursoPiano from "@/assets/curso-piano.jpg";
+import cursoViolin from "@/assets/curso-violin.jpg";
+import vidBateria from "@/assets/curso-bateria.mp4.asset.json";
+import vidCanto from "@/assets/curso-canto.mp4.asset.json";
+import vidExplorar from "@/assets/curso-explorar.mp4.asset.json";
+import vidGuitarra from "@/assets/curso-guitarra.mp4.asset.json";
+import vidPiano from "@/assets/curso-piano.mp4.asset.json";
+import vidViolin from "@/assets/curso-violin.mp4.asset.json";
 
 import {
   Card,
