@@ -4,7 +4,6 @@
 import { Award, Brain, Flame, Heart, Sparkles } from "lucide-react";
 
 import onbBienvenida from "@/assets/onb-bienvenida.jpg";
-import onbInstrumentos from "@/assets/onb-instrumentos.jpg";
 import onbMetodo from "@/assets/onb-metodo.jpg";
 import cursoBateria from "@/assets/curso-bateria.jpg";
 import cursoCanto from "@/assets/curso-canto.jpg";
