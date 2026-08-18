@@ -4,13 +4,25 @@
 import { Award, Brain, Flame, Heart, Sparkles } from "lucide-react";
 
 import onbBienvenida from "@/assets/onb-bienvenida.jpg";
-import onbInstrumentos from "@/assets/onb-instrumentos.jpg";
 import onbMetodo from "@/assets/onb-metodo.jpg";
+import cursoBateria from "@/assets/curso-bateria.jpg";
+import cursoCanto from "@/assets/curso-canto.jpg";
+import cursoExplorar from "@/assets/curso-explorar.jpg";
+import cursoGuitarra from "@/assets/curso-guitarra.jpg";
+import cursoPiano from "@/assets/curso-piano.jpg";
+import cursoViolin from "@/assets/curso-violin.jpg";
+import vidBateria from "@/assets/curso-bateria.mp4.asset.json";
+import vidCanto from "@/assets/curso-canto.mp4.asset.json";
+import vidExplorar from "@/assets/curso-explorar.mp4.asset.json";
+import vidGuitarra from "@/assets/curso-guitarra.mp4.asset.json";
+import vidPiano from "@/assets/curso-piano.mp4.asset.json";
+import vidViolin from "@/assets/curso-violin.mp4.asset.json";
 
 import {
   Card,
   Eyebrow,
   IconBadge,
+  MediaFrame,
   Photo,
   PhotoSlot,
   Rise,
@@ -150,12 +162,49 @@ export function StepMethod() {
 /* ------------------------------------------------------------------- PASO 4 */
 
 const CURSOS = [
-  { nombre: "Guitarra", edades: "7 años a adultos" },
-  { nombre: "Piano", edades: "desde 4 años" },
-  { nombre: "Violín", edades: "7 años a adultos" },
-  { nombre: "Canto", edades: "7 años a adultos" },
-  { nombre: "Batería", edades: "7 años a adultos" },
+  {
+    nombre: "Guitarra",
+    edades: "7 años a adultos",
+    poster: cursoGuitarra,
+    video: vidGuitarra.url,
+    alt: "Manos de una alumna tocando guitarra acústica con luz cálida",
+  },
+  {
+    nombre: "Piano",
+    edades: "desde 4 años",
+    poster: cursoPiano,
+    video: vidPiano.url,
+    alt: "Manos recorriendo las teclas de un piano de cola",
+  },
+  {
+    nombre: "Violín",
+    edades: "7 años a adultos",
+    poster: cursoViolin,
+    video: vidViolin.url,
+    alt: "Alumno tocando violín con el arco sobre las cuerdas",
+  },
+  {
+    nombre: "Canto",
+    edades: "7 años a adultos",
+    poster: cursoCanto,
+    video: vidCanto.url,
+    alt: "Alumna cantando frente a un micrófono de estudio",
+  },
+  {
+    nombre: "Batería",
+    edades: "7 años a adultos",
+    poster: cursoBateria,
+    video: vidBateria.url,
+    alt: "Manos con baquetas tocando caja y platillos",
+  },
 ];
+
+const CURSO_EXPLORAR = {
+  nombre: "Aún no lo sé",
+  poster: cursoExplorar,
+  video: vidExplorar.url,
+  alt: "Sala de ensayo con guitarra, piano, violín y batería bajo luces cálidas",
+};
 
 export function StepInstruments({
   seleccion,
@@ -164,6 +213,8 @@ export function StepInstruments({
   seleccion: string;
   onSelect: (nombre: string) => void;
 }) {
+  const actual = CURSOS.find((c) => c.nombre === seleccion) ?? CURSO_EXPLORAR;
+
   return (
     <div>
       <Rise>
@@ -172,10 +223,13 @@ export function StepInstruments({
       </Rise>
 
       <Rise delay={0.06} className="mt-7">
-        <Photo
-          src={onbInstrumentos}
-          alt="Grupo de alumnos de Vibra Music con guitarra, violín y micrófono"
+        <MediaFrame
+          mediaKey={actual.nombre}
+          video={actual.video}
+          poster={actual.poster}
+          alt={actual.alt}
           ratio="3/2"
+          caption={actual.nombre}
         />
       </Rise>
 

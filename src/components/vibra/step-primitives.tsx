@@ -2,7 +2,7 @@
  * Primitivas visuales de los pasos del onboarding.
  * Colores siempre por tokens semánticos (styles.css).
  */
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -80,6 +80,67 @@ export function Photo({
           loading={priority ? "eager" : "lazy"}
           className="h-full w-full object-cover"
         />
+      </div>
+      {caption ? (
+        <figcaption className="mt-3 text-center text-xs tracking-wide text-muted-foreground">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
+/**
+ * Marco con video en loop (mudo) y poster de respaldo.
+ * Hace crossfade al cambiar de fuente y respeta prefers-reduced-motion.
+ */
+export function MediaFrame({
+  video,
+  poster,
+  alt,
+  ratio = "3/2",
+  mediaKey,
+  caption,
+}: {
+  video?: string;
+  poster: string;
+  alt: string;
+  ratio?: "4/5" | "3/2" | "1/1";
+  mediaKey: string;
+  caption?: string;
+}) {
+  const aspect = { "4/5": "aspect-4/5", "3/2": "aspect-3/2", "1/1": "aspect-square" }[ratio];
+  const reduced = useReducedMotion();
+
+  return (
+    <figure className="mt-1">
+      <div className={`photo-frame ${aspect} relative w-full overflow-hidden rounded-3xl bg-sand`}>
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.div
+            key={mediaKey}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {video && !reduced ? (
+              <video
+                src={video}
+                poster={poster}
+                aria-label={alt}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <img src={poster} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
       {caption ? (
         <figcaption className="mt-3 text-center text-xs tracking-wide text-muted-foreground">
