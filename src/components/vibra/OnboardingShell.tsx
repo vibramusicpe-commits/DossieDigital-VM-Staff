@@ -42,13 +42,16 @@ export function OnboardingShell({
   nextLabel: string;
   children: ReactNode;
 }) {
-  const touchStart = useRef<number | null>(null);
+  const touchStart = useRef<{ y: number; x: number; time: number } | null>(null);
+  const lastNav = useRef(0);
   const isLast = current === total - 1;
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") onNext();
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") onPrev();
+      const target = event.target as HTMLElement | null;
+      if (target && /input|textarea|select/i.test(target.tagName)) return;
+      if (event.key === "ArrowRight") onNext();
+      if (event.key === "ArrowLeft") onPrev();
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
