@@ -2,7 +2,7 @@
  * Primitivas visuales de los pasos del onboarding.
  * Colores siempre por tokens semánticos (styles.css).
  */
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
