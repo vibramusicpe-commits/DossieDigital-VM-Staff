@@ -213,6 +213,8 @@ export function StepInstruments({
   seleccion: string;
   onSelect: (nombre: string) => void;
 }) {
+  const actual = CURSOS.find((c) => c.nombre === seleccion) ?? CURSO_EXPLORAR;
+
   return (
     <div>
       <Rise>
@@ -221,10 +223,13 @@ export function StepInstruments({
       </Rise>
 
       <Rise delay={0.06} className="mt-7">
-        <Photo
-          src={onbInstrumentos}
-          alt="Grupo de alumnos de Vibra Music con guitarra, violín y micrófono"
+        <MediaFrame
+          mediaKey={actual.nombre}
+          video={actual.video}
+          poster={actual.poster}
+          alt={actual.alt}
           ratio="3/2"
+          caption={actual.nombre}
         />
       </Rise>
 
