@@ -5,19 +5,10 @@ import { Award, Brain, Flame, Heart, Sparkles } from "lucide-react";
 
 import onbBienvenida from "@/assets/onb-bienvenida.jpg";
 import onbMetodo from "@/assets/onb-metodo.jpg";
-import cursoBateria from "@/assets/curso-bateria.jpg";
-import cursoCanto from "@/assets/curso-canto.jpg";
-import cursoExplorar from "@/assets/curso-explorar.jpg";
-import cursoGuitarra from "@/assets/curso-guitarra.jpg";
-import cursoPiano from "@/assets/curso-piano.jpg";
-import cursoViolin from "@/assets/curso-violin.jpg";
-import vidBateria from "@/assets/curso-bateria.mp4.asset.json";
-import vidCanto from "@/assets/curso-canto.mp4.asset.json";
-import vidExplorar from "@/assets/curso-explorar.mp4.asset.json";
-import vidGuitarra from "@/assets/curso-guitarra.mp4.asset.json";
-import vidPiano from "@/assets/curso-piano.mp4.asset.json";
-import vidViolin from "@/assets/curso-violin.mp4.asset.json";
 
+import { CURSOS, getCurso } from "./cursos";
+import { NIVEL_MENSAJE, type Nivel } from "./journey";
+import { MiniPiano } from "./MiniPiano";
 import {
   Card,
   Eyebrow,
@@ -32,7 +23,19 @@ import {
 
 /* ------------------------------------------------------------------- PASO 1 */
 
-export function StepWelcome() {
+const NIVELES: { valor: Nivel; etiqueta: string; detalle: string }[] = [
+  { valor: "Nunca", etiqueta: "Nunca toqué", detalle: "Empiezo desde cero" },
+  { valor: "Un poco", etiqueta: "Un poco", detalle: "Sé algo suelto" },
+  { valor: "Retomando", etiqueta: "Retomando", detalle: "Ya toqué antes" },
+];
+
+export function StepWelcome({
+  nivel,
+  onNivel,
+}: {
+  nivel: Nivel | null;
+  onNivel: (n: Nivel) => void;
+}) {
   return (
     <div className="text-center">
       <Rise>
@@ -47,8 +50,8 @@ export function StepWelcome() {
 
       <Rise delay={0.1} className="mx-auto max-w-sm">
         <StepText>
-          Te acompañamos paso a paso en este recorrido de 8 pantallas para que conozcas la escuela,
-          el método y tu primera clase gratuita.
+          Este recorrido de 8 pantallas es una mini clase: vas a tocar, medir tu pulso y salir con
+          un plan hecho a tu medida.
         </StepText>
       </Rise>
 
@@ -59,6 +62,42 @@ export function StepWelcome() {
           priority
           caption="Clases presenciales para niños, jóvenes y adultos"
         />
+      </Rise>
+
+      <Rise delay={0.22} className="mt-6">
+        <Card className="text-left">
+          <h2 className="text-lg text-foreground">¿Ya tocaste algún instrumento?</h2>
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {NIVELES.map((n) => {
+              const activo = nivel === n.valor;
+              return (
+                <button
+                  key={n.valor}
+                  type="button"
+                  onClick={() => onNivel(n.valor)}
+                  aria-pressed={activo}
+                  className={`rounded-2xl border p-3 text-left transition active:scale-[0.98] ${
+                    activo
+                      ? "border-gold bg-gold/12 text-foreground"
+                      : "border-border bg-sand text-muted-foreground hover:border-gold/50"
+                  }`}
+                >
+                  <span className="block text-sm font-semibold text-foreground">{n.etiqueta}</span>
+                  <span className="mt-0.5 block text-[11px] leading-tight">{n.detalle}</span>
+                </button>
+              );
+            })}
+          </div>
+          {nivel ? (
+            <p className="mt-4 text-sm font-light leading-relaxed text-gold">
+              {NIVEL_MENSAJE[nivel]}
+            </p>
+          ) : (
+            <p className="mt-4 text-xs text-muted-foreground">
+              Con tu respuesta ajustamos lo que verás en los siguientes pasos.
+            </p>
+          )}
+        </Card>
       </Rise>
     </div>
   );
@@ -124,7 +163,13 @@ const METODO = [
   },
 ];
 
-export function StepMethod() {
+export function StepMethod({
+  nivel,
+  onMelodia,
+}: {
+  nivel: Nivel | null;
+  onMelodia: () => void;
+}) {
   return (
     <div>
       <Rise>
@@ -132,7 +177,17 @@ export function StepMethod() {
         <StepTitle>Enseñamos con el corazón y con método</StepTitle>
       </Rise>
 
-      <Rise delay={0.06} className="mt-7">
+      {nivel ? (
+        <Rise delay={0.04}>
+          <StepText>{NIVEL_MENSAJE[nivel]}</StepText>
+        </Rise>
+      ) : null}
+
+      <Rise delay={0.08} className="mt-6">
+        <MiniPiano onComplete={onMelodia} />
+      </Rise>
+
+      <Rise delay={0.14} className="mt-6">
         <Photo
           src={onbMetodo}
           alt="Profesor guiando las manos de un alumno adolescente en la guitarra"
@@ -142,7 +197,7 @@ export function StepMethod() {
 
       <div className="mt-6 space-y-3">
         {METODO.map((m, i) => (
-          <Rise key={m.titulo} delay={0.12 + i * 0.06}>
+          <Rise key={m.titulo} delay={0.18 + i * 0.06}>
             <Card className="flex items-start gap-4">
               <IconBadge icon={m.icon} />
               <div className="min-w-0">
@@ -161,51 +216,6 @@ export function StepMethod() {
 
 /* ------------------------------------------------------------------- PASO 4 */
 
-const CURSOS = [
-  {
-    nombre: "Guitarra",
-    edades: "7 años a adultos",
-    poster: cursoGuitarra,
-    video: vidGuitarra.url,
-    alt: "Manos de una alumna tocando guitarra acústica con luz cálida",
-  },
-  {
-    nombre: "Piano",
-    edades: "desde 4 años",
-    poster: cursoPiano,
-    video: vidPiano.url,
-    alt: "Manos recorriendo las teclas de un piano de cola",
-  },
-  {
-    nombre: "Violín",
-    edades: "7 años a adultos",
-    poster: cursoViolin,
-    video: vidViolin.url,
-    alt: "Alumno tocando violín con el arco sobre las cuerdas",
-  },
-  {
-    nombre: "Canto",
-    edades: "7 años a adultos",
-    poster: cursoCanto,
-    video: vidCanto.url,
-    alt: "Alumna cantando frente a un micrófono de estudio",
-  },
-  {
-    nombre: "Batería",
-    edades: "7 años a adultos",
-    poster: cursoBateria,
-    video: vidBateria.url,
-    alt: "Manos con baquetas tocando caja y platillos",
-  },
-];
-
-const CURSO_EXPLORAR = {
-  nombre: "Aún no lo sé",
-  poster: cursoExplorar,
-  video: vidExplorar.url,
-  alt: "Sala de ensayo con guitarra, piano, violín y batería bajo luces cálidas",
-};
-
 export function StepInstruments({
   seleccion,
   onSelect,
@@ -213,7 +223,7 @@ export function StepInstruments({
   seleccion: string;
   onSelect: (nombre: string) => void;
 }) {
-  const actual = CURSOS.find((c) => c.nombre === seleccion) ?? CURSO_EXPLORAR;
+  const actual = getCurso(seleccion);
 
   return (
     <div>
@@ -273,6 +283,24 @@ export function StepInstruments({
           </button>
         </Rise>
       </div>
+
+      <Rise delay={0.42} className="mt-6">
+        <Card>
+          <h2 className="text-lg text-foreground">¿Qué aprenderías el primer mes?</h2>
+          <ol className="mt-4 space-y-3">
+            {actual.hitos.map((h, i) => (
+              <li key={h} className="flex items-start gap-3">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-gold/40 bg-gold/10 font-display text-sm text-gold">
+                  {i + 1}
+                </span>
+                <p className="min-w-0 text-sm font-light leading-relaxed text-muted-foreground">
+                  {h}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </Card>
+      </Rise>
     </div>
   );
 }
